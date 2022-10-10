@@ -7,14 +7,17 @@ const noOfNotes = document.querySelectorAll(".no-of-notes");
 // console.log(billAmount,cashGiven);
 
 function calculateChange(AmountToBeReturned){
-    for(let i=0;i < availableNotes.length; i++){
+    if(AmountToBeReturned){
+        for(let i=0;i < availableNotes.length; i++){
         const numberOfNotes= Math.trunc(Number(AmountToBeReturned/availableNotes[i]));
         AmountToBeReturned=AmountToBeReturned % availableNotes[i];
         noOfNotes[i].innerText=numberOfNotes;
-
-
+    }}
+    else{
+        for(let i=0;i < availableNotes.length; i++){
+            noOfNotes[i].innerText='';
     }
-    
+}   
 }
 
 function validateBillAndCashAmount(){
@@ -33,10 +36,11 @@ function calcChange(billAmount,cashGiven){
         if(cashGiven > billAmount){
             const AmountToBeReturned=cashGiven-billAmount;
             calculateChange(AmountToBeReturned);
-
+            outputBox.innerText=""
         }
     
         else{
+            calculateChange(null);
             outputBox.innerText="Do you wanna wash plates ? "
         }
     
